@@ -2,9 +2,18 @@ from english_words import get_english_words_set
 import time
 from trie import Trie
 from wordList_parse import load_words
-from spellingBee import big_test
 from spellingBee import is_ascii_lower
 from spellingBee import SpellingBee
+
+def update_score(word, panagram, score):
+	if len(word) == 4:
+		score += 1
+	else:
+		score += len(word)
+	if panagram:
+		score += 7
+	return score
+
 
 
 # driver function
@@ -21,7 +30,7 @@ def main():
 			print("please only enter y or n.")
 
 	# default character list:
-	keys, special_char = big_test()
+	#keys, special_char = big_test()
 	if (use_new):
 		count = 0
 		chrs = []
@@ -59,23 +68,31 @@ def main():
 
 	words.sort()
 	print(len(words))
-	print(words)
 
 	pg = test_bee.getPanagrams()
 	print(len(pg))
-	print(pg)
-
+	
+	total_score = test_bee.getTotalScore()
+	print("high score is: " + str(total_score))
 	guessed = []
 	score = 0
 	print("you may begin guessing")
 	while (True):
+		panagram = False
 		guess = input(": ")
 		if words.__contains__(guess):
 			print("correct!")
-			score += 1
+			if pg.__contains__(guess):
+				panagram = True
+				print("you found a panagram!")
 			guessed.append(guess)
+			score = update_score(guess, panagram, score)
+			print("score: " + str(score))
+			
+		elif len(guess) < 4:
+			print("too short")
 		else:
-			print("this is not a word")
+			print("not a valid word")
 
 
 
