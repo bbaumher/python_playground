@@ -97,6 +97,22 @@ class SpellingBee():
 		score += 7 * len(self.panagrams)
 		self.score = score
 		return score
+	
+	def print_game(self):
+		alph = sorted(self.characters)
+		str = self.getMainCharacter().upper() + "- "
+		tot = len(alph) - 1
+		cnt = 0
+		for char in alph:
+			if not char == self.getMainCharacter():
+				cnt += 1
+				str +=char
+				if not cnt == tot:
+					str += ", "
+		return str
+
+		
+
 
 
 

@@ -5,6 +5,9 @@ from wordList_parse import load_words
 from spellingBee import is_ascii_lower
 from spellingBee import SpellingBee
 
+def default_bee():
+	return ['a', 'c', 't', 'h', 'i', 'n', 'g']
+
 def update_score(word, panagram, score):
 	if len(word) == 4:
 		score += 1
@@ -14,6 +17,14 @@ def update_score(word, panagram, score):
 		score += 7
 	return score
 
+def contains_correct_letters(guess, chars):
+	for char in guess:
+		if char not in chars:
+			return False
+	return True
+
+def contains_special_char(guess, char):
+	return char in guess
 
 
 # driver function
@@ -55,6 +66,9 @@ def main():
 				searching = False
 		keys = chrs
 		special_char = main_char
+	else:
+		keys = default_bee()
+		special_char = 't'
 
 	seconds = time.time()
 
@@ -63,34 +77,45 @@ def main():
 	# constructing bee time
 	after_time = time.time()
 	print("construction time: ", after_time - seconds)
+	letters = test_bee.print_game()
+	print(letters)
 
 	words = test_bee.legal_words()
 
 	words.sort()
-	print(len(words))
+	#print(len(words))
 
 	pg = test_bee.getPanagrams()
-	print(len(pg))
+	#print(len(pg))
+
 	
 	total_score = test_bee.getTotalScore()
 	print("high score is: " + str(total_score))
+
 	guessed = []
 	score = 0
-	print("you may begin guessing")
+	print("begin!")
 	while (True):
 		panagram = False
-		guess = input(": ")
+		guess = input("your letters are [" + letters + "]: ")
 		if words.__contains__(guess):
-			print("correct!")
-			if pg.__contains__(guess):
-				panagram = True
-				print("you found a panagram!")
-			guessed.append(guess)
-			score = update_score(guess, panagram, score)
-			print("score: " + str(score))
+			if guessed.__contains__(guess):
+				print("You already found this word :(")
+			else:
+				print("correct!")
+				if pg.__contains__(guess):
+					panagram = True
+					print("you found a panagram!")
+				guessed.append(guess)
+				score = update_score(guess, panagram, score)
+				print("score: " + str(score))
 			
 		elif len(guess) < 4:
 			print("too short")
+		elif not contains_correct_letters(guess, keys):
+			print("you used a letter not in game")
+		elif not contains_special_char(guess, special_char):
+			print("missing special letter!")
 		else:
 			print("not a valid word")
 
