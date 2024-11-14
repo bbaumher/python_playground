@@ -119,4 +119,5 @@ function update(guessed) {
 		alert(message);
 	}
 	game_level();
+	document.getElementById("guess").value = "";
 }
