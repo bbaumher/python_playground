@@ -33,7 +33,7 @@ class SpellingBee():
 		else:
 			self.trie = getEnglishTrie()
 		self.words = []
-		self.panagrams = []
+		self.pangrams = []
 		self.score = 0
 	
 	def getCharacters(self):
@@ -55,27 +55,27 @@ class SpellingBee():
 		self.words = good_words
 		return good_words
 	
-	def getPanagrams(self):
-		#if panagrams computed, return
-		if len(self.panagrams) > 0:
-			return self.panagrams
+	def getPangrams(self):
+		#if pangrams computed, return
+		if len(self.pangrams) > 0:
+			return self.pangrams
 		
 		# if legal_words not yet computed, compute
 		if len(self.words) == 0:
 			self.legal_words()
 
-		panagrams = self.words.copy()
+		pangrams = self.words.copy()
 
 		for gw in self.words:
 			if len(gw) < len(self.characters):
-				panagrams.remove(gw)
+				pangrams.remove(gw)
 				continue
 			for char in self.characters:
 				if char not in gw:
-					panagrams.remove(gw)
+					pangrams.remove(gw)
 					break
-		self.panagrams = panagrams
-		return panagrams
+		self.pangrams = pangrams
+		return pangrams
 
 	def getTotalScore(self):
 		score = 0
@@ -91,10 +91,10 @@ class SpellingBee():
 			elif len(gw) > 4:
 				score += len(gw)
 
-		if len(self.panagrams) == 0:
-			self.getPanagrams()
+		if len(self.pangrams) == 0:
+			self.getPangrams()
 
-		score += 7 * len(self.panagrams)
+		score += 7 * len(self.pangrams)
 		self.score = score
 		return score
 	
