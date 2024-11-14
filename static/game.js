@@ -8,6 +8,13 @@ function init() {
 		}
 		letters.appendChild(l);
 	});
+	// Adding keypress event listener to the password input
+	document.getElementById("guess").addEventListener("keypress", function (event) {
+		if (event.keyCode === 13) {
+			// Triggering click event on button when Enter key is pressed
+			document.getElementById("btn").click();
+		}
+	});
 }
 
 function game_level() {
@@ -112,20 +119,4 @@ function update(guessed) {
 		alert(message);
 	}
 	game_level();
-}
-
-function game_score() {
-	let word = document.getElementById("guess").value;
-	let score = parseInt(document.getElementById('score').innerHTML);
-	if (game.words.includes(word)) {
-		if (word.length == 4) {
-			score += 1;
-		} else if (word.length > 4) {
-			score += word.length;
-		}
-		if (game.pangrams.includes(word)) {
-			score += 7;
-		}
-	}
-	document.getElementById('score').innerHTML = score;
 }
