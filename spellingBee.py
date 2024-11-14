@@ -83,7 +83,7 @@ class SpellingBee():
 			return self.score
 		
 		if len(self.words) == 0:
-			self.legal_words(self)
+			self.legal_words()
 
 		for gw in self.words:
 			if len(gw) == 4:
@@ -92,7 +92,7 @@ class SpellingBee():
 				score += len(gw)
 
 		if len(self.panagrams) == 0:
-			self.getPanagrams(self)
+			self.getPanagrams()
 
 		score += 7 * len(self.panagrams)
 		self.score = score
