@@ -25,13 +25,24 @@
   <h1>Spelling Bee</h1>
   <hr>
   <div id="letters">
-  <p>Score is:</p><p id="score">0</p>
-  <input id="guess">
-
-  <button type="button" onclick="game_score()">Submit</button>
-
 
   </div>
+
+	<div>
+	<div id="qual_score"><p>Beginner</p></div>
+  <div>
+		<p>Score is:</p><p id="score">0</p>
+	</div>
+
+  <input id="guess">
+
+  <button type="button" onclick="update()">Submit</button>
+
+	<div id="words"></div>
+
+
+</div>
+
 </body>
 
 <script>
