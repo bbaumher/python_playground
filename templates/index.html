@@ -17,25 +17,19 @@
 
   <script>
     var game  = {{ game | tojson }}
-  
-    function init() {
-        var letters = document.getElementById('letters');
-        game.letters.forEach(letter => {
-          var l = document.createElement('li');
-          l.innerHTML = letter;
-          if (letter == game.main_letter) {
-            l.style.color = 'gold';
-          }
-          letters.appendChild(l);
-        });
-    }
   </script>
+  <script type="text/javascript" src="static/game.js"></script>
 </head>
 
 <body>
   <h1>Spelling Bee</h1>
   <hr>
   <div id="letters">
+  <p>Score is:</p><p id="score">0</p>
+  <input id="guess">
+
+  <button type="button" onclick="game_score()">Submit</button>
+
 
   </div>
 </body>
