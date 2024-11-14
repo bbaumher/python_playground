@@ -17,6 +17,7 @@
 
   <script>
     var game  = {{ game | tojson }}
+		var guessed = []
   </script>
   <script type="text/javascript" src="static/game.js"></script>
 </head>
@@ -36,13 +37,14 @@
 
   <input id="guess">
 
-  <button type="button" onclick="update()">Submit</button>
-
+  <button type="button" onclick="update(guessed)">Submit</button>
+	
+	
 	<div id="words"></div>
 
 
-</div>
 
+</div>
 </body>
 
 <script>

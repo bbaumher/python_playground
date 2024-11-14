@@ -50,8 +50,67 @@ function game_level() {
 
 }
 
-function update() {
-	game_score();
+function add_word(word) {
+	var words = document.getElementById('words');
+
+	var l = document.createElement('li');
+	l.innerHTML = word;
+
+	words.appendChild(l);
+}
+
+function containsLetters(guess) {
+	for (let i = 0; i < guess.length; i++) {
+		if (game.letters.indexOf(guess[i]) === -1) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function containsSpecialChar(guess) {
+	return guess.includes(game.main_letter);
+}
+
+
+function checkWord() {
+	let guess = document.getElementById("guess").value;
+	let score = parseInt(document.getElementById('score').innerHTML);
+
+	let message = "";
+	if (game.words.includes(guess)) {
+		if (guessed.indexOf(guess) === -1) {
+			guessed.push(guess);
+			add_word(guess);
+			if (game.pangrams.includes(guess)) {
+				score += 7;
+				message = "You found a pangram!";
+			}
+			if (guess.length == 4) {
+				score += 1;
+			} else if (guess.length > 4) {
+				score += guess.length;
+			}
+		} else {
+			message = "Already Guessed!";
+		}
+	} else if (guess.length < 4) {
+		message = "Word is too short";
+	} else if (!containsLetters(guess)) {
+		message = "Used not allowed letters";
+	} else if (!containsSpecialChar(guess)) {
+		message = "Missing special letter";
+	}
+	document.getElementById('score').innerHTML = score;
+	return message;
+
+}
+
+function update(guessed) {
+	message = checkWord(guessed);
+	if (message.length > 0) {
+		alert(message);
+	}
 	game_level();
 }
 
@@ -69,17 +128,4 @@ function game_score() {
 		}
 	}
 	document.getElementById('score').innerHTML = score;
-}
-
-function later() {
-	if (game.words.includes(word)) {
-		if (word.length == 4) {
-			score += 1;
-		} else if (word.length > 4) {
-			score += word.length;
-		}
-		if (game.pangrams.includes(word)) {
-			score += 7;
-		}
-	}
 }
