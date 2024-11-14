@@ -8,12 +8,12 @@ from spellingBee import SpellingBee
 def default_bee():
 	return ['a', 'c', 't', 'h', 'i', 'n', 'g']
 
-def update_score(word, panagram, score):
+def update_score(word, pangram, score):
 	if len(word) == 4:
 		score += 1
 	else:
 		score += len(word)
-	if panagram:
+	if pangram:
 		score += 7
 	return score
 
@@ -85,7 +85,7 @@ def main():
 	words.sort()
 	#print(len(words))
 
-	pg = test_bee.getPanagrams()
+	pg = test_bee.getPangrams()
 	#print(len(pg))
 
 	
@@ -96,7 +96,7 @@ def main():
 	score = 0
 	print("begin!")
 	while (True):
-		panagram = False
+		pangram = False
 		guess = input("your letters are [" + letters + "]: ")
 		if words.__contains__(guess):
 			if guessed.__contains__(guess):
@@ -104,10 +104,10 @@ def main():
 			else:
 				print("correct!")
 				if pg.__contains__(guess):
-					panagram = True
-					print("you found a panagram!")
+					pangram = True
+					print("you found a pangram!")
 				guessed.append(guess)
-				score = update_score(guess, panagram, score)
+				score = update_score(guess, pangram, score)
 				print("score: " + str(score))
 			
 		elif len(guess) < 4:

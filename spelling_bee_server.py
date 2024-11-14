@@ -7,7 +7,7 @@ game = dict(
 	letters=bee.characters,
     main_letter=bee.main_letter,
     words=bee.legal_words(),
-    pangrams=bee.getPanagrams(),
+    pangrams=bee.getPangrams(),
     total_score=bee.getTotalScore(),
 )
 
