@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <title>Spelling Bee</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    html {
+      font-family: Sans-Serif;
+    }
+
+    fieldset {
+      float: block;
+    }
+  </style>
+
+  <script>
+    var game  = {{ game | tojson }}
+  
+    function init() {
+        var letters = document.getElementById('letters');
+        game.letters.forEach(letter => {
+          var l = document.createElement('li');
+          l.innerHTML = letter;
+          if (letter == game.main_letter) {
+            l.style.color = 'gold';
+          }
+          letters.appendChild(l);
+        });
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Spelling Bee</h1>
+  <hr>
+  <div id="letters">
+
+  </div>
+</body>
+
+<script>
+  init()
+</script>
+
+</html>

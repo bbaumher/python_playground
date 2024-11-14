@@ -1,15 +1,9 @@
-import pandas as pd
-
-#read_file = pd.read_csv ('./engmix.txt', encoding = 'utf8')
-#read_file.to_csv 
 def load_words(path='./engmix.txt'):
-
-    df = pd.read_csv(path, encoding='ISO-8859-1', sep=' ', header=None, names=['word'])
-   # df.str.encode('ascii', 'ignore').str.decode('ascii')
+    with open(path, encoding='ISO-8859-1') as f:
+        lines = f.readlines()
 
     dictionary = []
-    for index, row in df.iterrows():
-        word = row['word']
+    for word in lines:
         if(type(word) is not str):
             #print("non string? ", word)
             continue
