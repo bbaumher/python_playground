@@ -12,13 +12,33 @@ function init() {
 		}
 		letters.appendChild(l);
 	});
-	// Adding keypress event listener to the password input
-	document.getElementById("guess").addEventListener("keypress", function (event) {
-		if (event.keyCode === 13) {
-			// Triggering click event on button when Enter key is pressed
-			document.getElementById("btn").click();
+
+
+
+	document.addEventListener('keyup', function (evt) {
+		evt = (evt) ? evt : window.event;
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		// Enter key
+		if (charCode === 13) {
+			update(guessed);
+			return;
+		} else if (charCode === 8) {
+			// this is backspace
+			str = document.getElementById("display").innerHTML;
+			document.getElementById("display").innerHTML = str.slice(0, -1); 
+		} else {
+			// Non alpha character
+			//if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+			if(!(charCode > 64 && charCode < 91) && !(charCode > 96 && charCode < 123)) {
+				console.log(charCode)
+				return;
+			}
+			// display character
+			document.getElementById("display").innerHTML += String.fromCharCode(evt.keyCode).toUpperCase();
 		}
 	});
+
+	// Share button
 	const btn = document.getElementById('share-btn');
 	const resultPara = document.querySelector('.result');
 	btn.addEventListener('click', () => {
@@ -26,11 +46,11 @@ function init() {
 		let level = document.getElementById("qual_score").innerHTML;
 		let words = document.getElementById("words").childNodes.length;
 		on_share(url, level, words, resultPara)
-      });
+	});
 }
 
 function click_letter(l) {
-	document.getElementById("guess").value += l
+	document.getElementById("display").innerHTML += l.toUpperCase();
 }
 
 function shuffle() {
@@ -65,21 +85,21 @@ function on_share(url, level, words) {
 		url: url,
 	};
 
-		if (!navigator.canShare) {
-			resultPara.textContent = 'Web Share API not available';
-			return;
-		}
-		if (!navigator.canShare(shareData)) {
-			resultPara.textContent = 'Share data unsupported, disallowed, or invalid';
-			return;
-		}
-		navigator.share(shareData)
-			.then(() =>
-				resultPara.textContent = 'MDN shared successfully'
-			)
-			.catch((e) =>
-				resultPara.textContent = 'Error: ' + e
-			);
+	if (!navigator.canShare) {
+		resultPara.textContent = 'Web Share API not available';
+		return;
+	}
+	if (!navigator.canShare(shareData)) {
+		resultPara.textContent = 'Share data unsupported, disallowed, or invalid';
+		return;
+	}
+	navigator.share(shareData)
+		.then(() =>
+			resultPara.textContent = 'MDN shared successfully'
+		)
+		.catch((e) =>
+			resultPara.textContent = 'Error: ' + e
+		);
 }
 
 
@@ -150,7 +170,7 @@ function ignoreCase(word) {
 
 
 function checkWord() {
-	let guess = document.getElementById("guess").value;
+	let guess = document.getElementById("display").innerHTML;
 	let score = parseInt(document.getElementById('score').innerHTML);
 
 	guess = ignoreCase(guess);
@@ -192,5 +212,6 @@ function update(guessed) {
 		alert(message);
 	}
 	game_level();
-	document.getElementById("guess").value = "";
+	document.getElementById("display").innerHTML = "";
+
 }

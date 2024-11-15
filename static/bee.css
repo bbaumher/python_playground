@@ -7,6 +7,10 @@ body {
     background-image: url('/games/static/bee.jpg');
 }
 
+.big {
+    font-size: x-large;
+    font-weight: bolder;
+}
 
 .flex-item {
     width: calc(33.33333% - 40px);
