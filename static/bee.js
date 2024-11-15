@@ -22,7 +22,10 @@ function init() {
 	const btn = document.getElementById('share-btn');
 	const resultPara = document.querySelector('.result');
 	btn.addEventListener('click', () => {
-		on_share()
+		let url = window.location.href;
+		let level = document.getElementById("qual_score").innerHTML;
+		let words = document.getElementById("words").childNodes.length;
+		on_share(url, level, words, resultPara)
       });
 }
 
@@ -53,10 +56,8 @@ function shuffle() {
 	});
 }
 
-function on_share() {
-	let url = window.location.href;
-	let level = document.getElementById("qual_score").innerHTML;
-	let words = document.getElementById("words").childNodes.length;
+function on_share(url, level, words) {
+
 	let text = "I found " + words + " words and achieved level " + level + "!";
 	let shareData = {
 		title: 'Spelling Bee by gRab',
@@ -64,10 +65,6 @@ function on_share() {
 		url: url,
 	};
 
-	const btn = document.getElementById('share-btn');
-	const resultPara = document.querySelector('.result');
-
-	btn.addEventListener('click', () => {
 		if (!navigator.canShare) {
 			resultPara.textContent = 'Web Share API not available';
 			return;
@@ -82,9 +79,7 @@ function on_share() {
 			)
 			.catch((e) =>
 				resultPara.textContent = 'Error: ' + e
-			)
-	});
-
+			);
 }
 
 
