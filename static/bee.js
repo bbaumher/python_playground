@@ -107,6 +107,8 @@ function checkWord() {
 		message = "Used not allowed letters";
 	} else if (!containsSpecialChar(guess)) {
 		message = "Missing special letter";
+	} else {
+		message = "Not a word :/"
 	}
 	document.getElementById('score').innerHTML = score;
 	return message;
