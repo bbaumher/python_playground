@@ -1,0 +1,4 @@
+# Example spelling bee puzzle file
+2024-11-13 slzupey p
+2024-11-14 changti t
+2024-11-15 alibdes d
