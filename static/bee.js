@@ -22,6 +22,25 @@ function init() {
 function click_letter(l) {
 	document.getElementById("guess").value += l
 }
+
+function shuffle() {
+	letters = document.getElementById('letters')
+	let array = document.getElementById('letters').children;
+	// Iterate over the array in reverse order
+	for (let i = array.length - 1; i > 0; i--) {
+		
+		var clonedElement1 = array[i].cloneNode(true);
+		// Generate Random Index
+		const j = Math.floor(Math.random() * (i + 1));
+
+		// Swap elements
+		var clonedElement2 = array[j].cloneNode(true);
+	
+		letters.replaceChild(clonedElement1, array[j]);
+		letters.replaceChild(clonedElement2, array[i]);
+	}
+}
+
 function game_level() {
 	total = game.total_score;
 	level1 = 0;
