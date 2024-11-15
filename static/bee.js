@@ -3,10 +3,10 @@ function init() {
 	game.letters.forEach(letter => {
 		var l = document.createElement('div');
 		l.classList.add("flex-item");
-		var p = document.createElement('p');	
+		var p = document.createElement('p');
 		p.innerHTML = letter;
 		l.appendChild(p);
-		l.onclick = function(){click_letter(letter);}
+		l.onclick = function () { click_letter(letter); }
 		if (letter == game.main_letter) {
 			l.classList.add("special-letter");
 		}
@@ -19,6 +19,11 @@ function init() {
 			document.getElementById("btn").click();
 		}
 	});
+	const btn = document.getElementById('share-btn');
+	const resultPara = document.querySelector('.result');
+	btn.addEventListener('click', () => {
+		on_share()
+      });
 }
 
 function click_letter(l) {
@@ -30,7 +35,7 @@ function shuffle() {
 	let array = document.getElementById('letters').children;
 	// Iterate over the array in reverse order
 	for (let i = array.length - 1; i > 0; i--) {
-		
+
 		var clonedElement1 = array[i].cloneNode(true);
 		// Generate Random Index
 		const j = Math.floor(Math.random() * (i + 1));
@@ -44,9 +49,44 @@ function shuffle() {
 	var children = [...letters.children];
 
 	children.forEach(letter => {
-		letter.onclick = function(){click_letter(letter.firstChild.innerHTML);}
+		letter.onclick = function () { click_letter(letter.firstChild.innerHTML); }
 	});
 }
+
+function on_share() {
+	let url = window.location.href;
+	let level = document.getElementById("qual_score").innerHTML;
+	let words = document.getElementById("words").childNodes.length;
+	let text = "I found " + words + " words and achieved level " + level + "!";
+	let shareData = {
+		title: 'Spelling Bee by gRab',
+		text: text,
+		url: url,
+	};
+
+	const btn = document.getElementById('share-btn');
+	const resultPara = document.querySelector('.result');
+
+	btn.addEventListener('click', () => {
+		if (!navigator.canShare) {
+			resultPara.textContent = 'Web Share API not available';
+			return;
+		}
+		if (!navigator.canShare(shareData)) {
+			resultPara.textContent = 'Share data unsupported, disallowed, or invalid';
+			return;
+		}
+		navigator.share(shareData)
+			.then(() =>
+				resultPara.textContent = 'MDN shared successfully'
+			)
+			.catch((e) =>
+				resultPara.textContent = 'Error: ' + e
+			)
+	});
+
+}
+
 
 function game_level() {
 	total = game.total_score;
