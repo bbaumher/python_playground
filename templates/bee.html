@@ -4,16 +4,9 @@
   <title>Spelling Bee</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/games/static/bee.css">
 
-  <style>
-    html {
-      font-family: Sans-Serif;
-    }
 
-    fieldset {
-      float: block;
-    }
-  </style>
 
   <script>
     var game  = {{ game | tojson }}
@@ -29,7 +22,7 @@
 <body>
   <h1>Spelling Bee</h1>
   <hr>
-  <div id="letters">
+  <div class="container" id="letters">
 
   </div>
 

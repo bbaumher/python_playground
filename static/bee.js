@@ -1,10 +1,12 @@
 function init() {
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
-		var l = document.createElement('li');
+		var l = document.createElement('p');
 		l.innerHTML = letter;
+		l.classList.add("flex-item");
+		l.onclick = function(){click_letter(letter);}
 		if (letter == game.main_letter) {
-			l.style.color = 'gold';
+			l.classList.add("special-letter");
 		}
 		letters.appendChild(l);
 	});
@@ -17,6 +19,9 @@ function init() {
 	});
 }
 
+function click_letter(l) {
+	document.getElementById("guess").value += l
+}
 function game_level() {
 	total = game.total_score;
 	level1 = 0;
