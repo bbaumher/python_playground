@@ -37,10 +37,15 @@ function shuffle() {
 
 		// Swap elements
 		var clonedElement2 = array[j].cloneNode(true);
-	
+
 		letters.replaceChild(clonedElement1, array[j]);
 		letters.replaceChild(clonedElement2, array[i]);
 	}
+	var children = [...letters.children];
+
+	children.forEach(letter => {
+		letter.onclick = function(){click_letter(letter.firstChild.innerHTML);}
+	});
 }
 
 function game_level() {
