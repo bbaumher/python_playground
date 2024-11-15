@@ -4,7 +4,7 @@ function init() {
 		var l = document.createElement('div');
 		l.classList.add("flex-item");
 		var p = document.createElement('p');
-		p.innerHTML = letter;
+		p.innerHTML = letter.toUpperCase();
 		l.appendChild(p);
 		l.onclick = function () { click_letter(letter); }
 		if (letter == game.main_letter) {
@@ -120,7 +120,6 @@ function game_level() {
 		level = "Beginner";
 	}
 	document.getElementById("qual_score").innerHTML = level;
-
 }
 
 function add_word(word) {
@@ -145,10 +144,16 @@ function containsSpecialChar(guess) {
 	return guess.includes(game.main_letter);
 }
 
+function ignoreCase(word) {
+	return word.toLowerCase();
+}
+
 
 function checkWord() {
 	let guess = document.getElementById("guess").value;
 	let score = parseInt(document.getElementById('score').innerHTML);
+
+	guess = ignoreCase(guess);
 
 	let message = "";
 	if (game.words.includes(guess)) {
