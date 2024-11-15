@@ -13,18 +13,30 @@ def getWordTrie(word_list):
 			# count += 1
 	return t
 
+# Memoize decorator that allows calls to the Trie creation functions to be cached.
+def memoize(f):
+	cache = {}
+	def helper():
+		if 'result' in cache:
+			return cache['result']
+		else:
+			cache['result'] = f()
+			return cache['result']
+	return helper
+
+@memoize
 def getEnglishTrie():
 	english = get_english_words_set(['web2'], lower=True)
 	return getWordTrie(english)
 
+@memoize
 def getTxtFileTrie():
 	english = load_words()
 	return getWordTrie(english)
 
 
-
 class SpellingBee():
-		
+
 	def __init__(self, characters, main_char='', use_txt=True):
 		self.main_letter = main_char
 		self.characters = characters
