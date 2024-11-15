@@ -17,6 +17,10 @@ html {
     height: 50px;
   }
 
+  .flex-item p {
+    vertical-align: middle;
+  }
+
 .special-letter {
     align-self: stretch;
     background-color: gold;

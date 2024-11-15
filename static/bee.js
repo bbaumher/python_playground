@@ -1,9 +1,11 @@
 function init() {
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
-		var l = document.createElement('p');
-		l.innerHTML = letter;
+		var l = document.createElement('div');
 		l.classList.add("flex-item");
+		var p = document.createElement('p');	
+		p.innerHTML = letter;
+		l.appendChild(p);
 		l.onclick = function(){click_letter(letter);}
 		if (letter == game.main_letter) {
 			l.classList.add("special-letter");
