@@ -11,8 +11,8 @@ game = dict(
     total_score=bee.getTotalScore(),
 )
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/games/static')
 
-@app.route('/')
+@app.route('/games/bee')
 def index():
-	return render_template('index.html', game=game)
+	return render_template('bee.html', game=game)
