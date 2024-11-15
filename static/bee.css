@@ -6,6 +6,12 @@ html {
     float: block;
 }
 
+body {
+    background-image: url('/games/static/bee.jpg');
+     background-size: cover;
+}
+
+
 .flex-item {
     width: calc(33.33333% - 40px);
     margin: 20px;
