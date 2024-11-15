@@ -2,9 +2,6 @@ html {
     font-family: Sans-Serif;
 }
 
-  fieldset {
-    float: block;
-}
 
 body {
     background-image: url('/games/static/bee.jpg');
@@ -14,7 +11,7 @@ body {
 
 .flex-item {
     width: calc(33.33333% - 40px);
-    margin: 20px;
+    margin: calc(1%);
     background-color: black;
     color: white;
     text-align: center;
@@ -31,6 +28,7 @@ body {
     align-self: stretch;
     background-color: gold;
     text-shadow: #FC0 3px 0 10px;
+ 
 }
 
   .container {
