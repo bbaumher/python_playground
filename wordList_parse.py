@@ -7,6 +7,7 @@ def load_words(path='./engmix.txt'):
         if(type(word) is not str):
             #print("non string? ", word)
             continue
+        word = word.rstrip("\n")  # Remove trailing newline
         badchar = False
         for c in list(word):
             if ord(c) < 97 or ord(c) > 122:
