@@ -1,4 +1,15 @@
 function init() {
+
+	// check cookies and load words if available
+	if (checkCookieExists("guessed")) {
+		guessed = getCookie("guessed");
+		var words = document.getElementById('words');
+		guessed.forEach(word => {
+			var l = document.createElement('li');
+			l.innerHTML = word;
+			words.appendChild(l);
+		});
+	}
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
 		var l = document.createElement('div');
@@ -13,8 +24,6 @@ function init() {
 		letters.appendChild(l);
 	});
 
-
-
 	document.addEventListener('keyup', function (evt) {
 		evt = (evt) ? evt : window.event;
 		var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -28,7 +37,7 @@ function init() {
 		} else {
 			// Non alpha character
 			//if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
-			if(!(charCode > 64 && charCode < 91) && !(charCode > 96 && charCode < 123)) {
+			if (!(charCode > 64 && charCode < 91) && !(charCode > 96 && charCode < 123)) {
 				console.log(charCode)
 				return;
 			}
@@ -50,6 +59,20 @@ function init() {
 	});
 }
 
+function checkCookieExists(cookieName) {
+	if (document.cookie.split(';').some(item => item.trim().startsWith(cookieName + '='))) {
+		return true;
+	}
+	return false;
+}
+
+function getCookie(name) {
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) {
+		return JSON.parse(parts.pop().split(';').shift());
+	}
+}
 function click_letter(l) {
 	document.getElementById("display").innerHTML += l.toUpperCase();
 }
@@ -79,7 +102,7 @@ function shuffle() {
 
 function backspace() {
 	str = document.getElementById("display").innerHTML;
-	document.getElementById("display").innerHTML = str.slice(0, -1); 
+	document.getElementById("display").innerHTML = str.slice(0, -1);
 }
 
 function on_share(url, level, words) {
@@ -185,6 +208,7 @@ function checkWord() {
 	if (game.words.includes(guess)) {
 		if (guessed.indexOf(guess) === -1) {
 			guessed.push(guess);
+			document.cookie = ('guessed=' + JSON.stringify(guessed));
 			add_word(guess);
 			if (game.pangrams.includes(guess)) {
 				score += 7;
