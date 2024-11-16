@@ -33,6 +33,7 @@ function init() {
 				return;
 			}
 			// display character
+			document.getElementById("ephemeral").innerHTML = "";
 			document.getElementById("display").innerHTML += String.fromCharCode(evt.keyCode).toUpperCase();
 		}
 	});
@@ -213,9 +214,15 @@ function checkWord() {
 function update(guessed) {
 	message = checkWord(guessed);
 	if (message.length > 0) {
-		alert(message);
+		ephemeral_message(message);
 	}
 	game_level();
 	document.getElementById("display").innerHTML = "";
+}
+
+function ephemeral_message(message) {
+	message_el = document.getElementById("ephemeral");
+	message_el.innerHTML = message;
+	message_el.classList.toggle('fade');
 
 }
