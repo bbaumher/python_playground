@@ -23,9 +23,8 @@ function init() {
 			update(guessed);
 			return;
 		} else if (charCode === 8) {
-			// this is backspace
-			str = document.getElementById("display").innerHTML;
-			document.getElementById("display").innerHTML = str.slice(0, -1); 
+			// this is backspace keyCode
+			backspace();
 		} else {
 			// Non alpha character
 			//if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
@@ -74,6 +73,11 @@ function shuffle() {
 	children.forEach(letter => {
 		letter.onclick = function () { click_letter(letter.firstChild.innerHTML); }
 	});
+}
+
+function backspace() {
+	str = document.getElementById("display").innerHTML;
+	document.getElementById("display").innerHTML = str.slice(0, -1); 
 }
 
 function on_share(url, level, words) {
