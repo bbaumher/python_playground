@@ -1,45 +1,49 @@
 <!doctype html>
 <html>
+
 <head>
   <title>Spelling Bee</title>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/games/static/bee.css">
 
 
 
   <script>
-    var game  = {{ game | tojson }}
-		var guessed = []
+    var game = {{ game | tojson }}
+    var guessed = []
   </script>
   <script type="text/javascript" src="/games/static/bee.js"></script>
 </head>
 
 <body>
+  <!-- Headers -->
   <h1>Spelling Bee</h1>
   <hr>
   <h2>{{ date }}</h2>
+  <!-- Letter Display -->
   <div class="container" id="letters">
   </div>
-  <button id="shuffle-btn" type="button" onclick="shuffle()">Shuffle</button>
-
-
-
-	<div>
-	<div id="qual_score">Beginner</div>
-  <div>
-		<p>Score is:</p><p id="score">0</p>
-	</div>
-
+  <!-- Guess Display -->
   <div class="big" id="display"></div>
-  
-  <p><button id="share-btn">Share!</button></p>
-
-	<div id="words"></div>
-
-
-
-</div>
+  <!-- Buttons  -->
+  <div class="container">
+    <button id="delete-btn" class="button" type="button" onclick="backspace()">Delete</button>
+    <button id="shuffle-btn" class="button" type="button" onclick="shuffle()">Shuffle</button>
+    <button id="enter-btn" class="button" type="button" onclick="update(guessed)">Submit</button>
+  </div>
+  <!-- Score / Game Info -->
+  <div class="container">
+    <div class="info-container">
+      <div id="qual_score">Beginner</div>
+      <div>
+        <p style="display: inline">Score is:</p>
+        <p style="display: inline" id="score">0</p>
+      </div>
+      <p><button class="button" id="share-btn">Share!</button></p>
+    </div>
+    <div class="info-container" id="words"></div>
+  </div>
 </body>
 
 <script>
