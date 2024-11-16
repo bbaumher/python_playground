@@ -7,7 +7,7 @@ function init() {
 		guessed.forEach(word => {
 			var l = document.createElement('li');
 			l.innerHTML = word;
-			words.appendChild(l);
+			words.prepend(l);
 		});
 		document.getElementById('score').innerHTML = calculate_score();
 		game_level();
@@ -201,7 +201,7 @@ function game_level() {
 function add_word(word) {
 	var words = document.getElementById('words');
 
-	var l = document.createElement('li');
+	var l = document.prepend('li');
 	l.innerHTML = word;
 
 	words.appendChild(l);

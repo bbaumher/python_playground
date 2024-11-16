@@ -5,6 +5,8 @@ html {
 
 body {
     background-image: url('/games/static/bee.jpg');
+    margin:20px;
+    height:100%;
 }
 
 #qual_score {
@@ -16,6 +18,10 @@ body {
     backdrop-filter: blur(5px);
     border-radius: 5px;
     padding: 5px;
+    max-height:420px;
+    overflow:hidden;
+    overflow-y:scroll;
+    justify-content: right;
 }
 
 .big {
