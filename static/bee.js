@@ -201,10 +201,10 @@ function game_level() {
 function add_word(word) {
 	var words = document.getElementById('words');
 
-	var l = document.prepend('li');
+	var l = document.createElement('li');
 	l.innerHTML = word;
 
-	words.appendChild(l);
+	words.prepend(l);
 }
 
 function containsLetters(guess) {
