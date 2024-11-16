@@ -20,7 +20,7 @@ function init() {
 		var p = document.createElement('p');
 		p.innerHTML = letter.toUpperCase();
 		l.appendChild(p);
-		l.onclick = function () { click_letter(letter); }
+		l.onclick = function () { onLetterBoxClick(letter); }
 		if (letter == game.main_letter) {
 			l.classList.add("special-letter");
 		}
@@ -45,9 +45,7 @@ function init() {
 				return;
 			}
 			// display character
-			document.getElementById("ephemeral").innerHTML = "";
-			document.getElementById("ephemeral").classList.remove("fade");
-			document.getElementById("display").innerHTML += String.fromCharCode(evt.keyCode).toUpperCase();
+			onAlphaKeyPress(evt);
 		}
 	});
 
@@ -213,17 +211,9 @@ function on_share(url, level, words) {
 		resultPara.textContent = 'Share data unsupported, disallowed, or invalid';
 		return;
 	}
-	navigator.share(shareData)
-		.then(() =>
-			resultPara.textContent = 'MDN shared successfully'
-		)
-		.catch((e) =>
-			resultPara.textContent = 'Error: ' + e
-		);
-}
+	document.getElementById('score').innerHTML = score;
+	return message;
 
-function click_letter(l) {
-	document.getElementById("display").innerHTML += l.toUpperCase();
 }
 
 //Shuffle Button Action
@@ -257,6 +247,25 @@ function ephemeral_message(message) {
 	message_el.classList.add('fade');
 }
 
+function appendLetter(letter) {
+	letter = letter.toUpperCase();
+	if (document.getElementById("display").innerHTML.length < 1) {
+		document.getElementById("ephemeral").innerHTML = "";
+		document.getElementById("ephemeral").classList.remove("fade");
+	}
+	document.getElementById("display").innerHTML += letter;
+}
+
+// Letter Key Pressed
+function onAlphaKeyPress(event) {
+	appendLetter(String.fromCharCode(event.keyCode));
+
+}
+
+// Display the letter clicked on
+function onLetterBoxClick(l) {
+	appendLetter(l);
+}
 
 // Adds correct word to visibly show
 function add_word(word) {
