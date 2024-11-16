@@ -31,6 +31,11 @@ body {
     text-align: center;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .flex-item {
     width: calc(33.33333% - 40px);
     margin: calc(1%);
