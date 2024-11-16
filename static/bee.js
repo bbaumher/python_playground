@@ -9,6 +9,8 @@ function init() {
 			l.innerHTML = word;
 			words.appendChild(l);
 		});
+		document.getElementById('score').innerHTML = calculate_score();
+		game_level();
 	}
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
@@ -73,6 +75,31 @@ function getCookie(name) {
 		return JSON.parse(parts.pop().split(';').shift());
 	}
 }
+
+function calculate_score() {
+	score = 0;
+ guessed.forEach(guess => {
+	score += score_word(guess);
+ });
+ return score;
+}
+
+function score_word(word) {
+	score = 0;
+
+	if (word.length == 4) {
+		return 1;
+	}
+	// Longer Word
+	if (word.length > 4) {
+		score = word.length;
+		if (game.pangrams.includes(word)) {
+			score += 7;
+		}
+	}
+ 	return score;
+}
+
 function click_letter(l) {
 	document.getElementById("display").innerHTML += l.toUpperCase();
 }
