@@ -34,6 +34,7 @@ function init() {
 			}
 			// display character
 			document.getElementById("ephemeral").innerHTML = "";
+			document.getElementById("ephemeral").classList.remove("fade");
 			document.getElementById("display").innerHTML += String.fromCharCode(evt.keyCode).toUpperCase();
 		}
 	});
@@ -223,6 +224,5 @@ function update(guessed) {
 function ephemeral_message(message) {
 	message_el = document.getElementById("ephemeral");
 	message_el.innerHTML = message;
-	message_el.classList.toggle('fade');
-
+	message_el.classList.add('fade');
 }
