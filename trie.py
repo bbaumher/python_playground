@@ -106,7 +106,7 @@ class Trie:
 		for letter in letters:
 			indicies.append(self._charToIndex(letter))
 
-		return list(self.wlr(self.root, indicies))
+		return list(set(self.wlr(self.root, indicies)))
 	
 	# for another time
 	def to_json(self):
