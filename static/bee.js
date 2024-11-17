@@ -1,9 +1,20 @@
 // On Load
 function init() {
+	let stored = localStorage.getItem(date);
+	if (!stored) {
 
-	// check cookies and load words if available
-	if (checkCookieExists("guessed")) {
-		guessed = getCookie("guessed");
+		// Legacy code, keeping for beta users
+		// Delete soon. convert cookie to localstorage
+		if (checkCookieExists("guessed")) {
+			guessed = getCookie("guessed");
+			localStorage.setItem(date, JSON.stringify(guessed));
+			delete_cookie("guessed");
+		}
+	}
+	// check localstorage for stored guesses
+	stored = JSON.parse(localStorage.getItem(date));
+	if (stored) {
+		guessed = stored;
 		var words = document.getElementById('words');
 		guessed.forEach(word => {
 			var l = document.createElement('li');
@@ -13,6 +24,7 @@ function init() {
 		document.getElementById('score').innerHTML = calculate_score();
 		game_level();
 	}
+
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
 		var l = document.createElement('div');
@@ -81,7 +93,7 @@ function checkWord() {
 	if (game.words.includes(guess)) {
 		if (guessed.indexOf(guess) === -1) {
 			guessed.push(guess);
-			document.cookie = ('guessed=' + JSON.stringify(guessed));
+			localStorage.setItem(date, JSON.stringify(guessed));
 			add_word(guess);
 			if (game.pangrams.includes(guess)) {
 				score += 7;
@@ -174,15 +186,15 @@ function score_word(word) {
 			score += 7;
 		}
 	}
- 	return score;
+	return score;
 }
 
 function calculate_score() {
 	score = 0;
- guessed.forEach(guess => {
-	score += score_word(guess);
- });
- return score;
+	guessed.forEach(guess => {
+		score += score_word(guess);
+	});
+	return score;
 }
 
 // Helper Functions for characters
@@ -291,6 +303,29 @@ function getCookie(name) {
 		return JSON.parse(parts.pop().split(';').shift());
 	}
 }
+
+function removeCookie(name) {
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) {
+		return JSON.parse(parts.pop().split(';').shift());
+	}
+}
+
+function get_cookie(name){
+    return document.cookie.split(';').some(c => {
+        return c.trim().startsWith(name + '=');
+    });
+}
+
+function delete_cookie( name, path, domain ) {
+	if( get_cookie( name ) ) {
+	  document.cookie = name + "=" +
+		((path) ? ";path="+path:"")+
+		((domain)?";domain="+domain:"") +
+		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	}
+  }
 
 function checkCookieExists(cookieName) {
 	if (document.cookie.split(';').some(item => item.trim().startsWith(cookieName + '='))) {
