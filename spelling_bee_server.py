@@ -116,6 +116,8 @@ def archive():
     now = date_now()
     # Don't display future puzzles.
     dates = [d for d in puzzles.keys() if d <= now]
+    # Display the latest first.
+    dates.sort(reverse=True)
     return render_template('bee_archive.html', dates=dates)
 
 @app.route('/games/bee/today')
