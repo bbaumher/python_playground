@@ -95,6 +95,10 @@ body {
     flex-grow: 1;
 }
 
+.hexagon-container {
+    padding-top: 30px;
+}
+
 .hexagon {
     width: 100px;
     height: 55px;
