@@ -32,6 +32,44 @@ function init() {
 		game_level();
 	}
 
+	cnt = 0;
+	ele_cnt = 0;
+	var hex = document.getElementById('hexagon-container');
+	//letters = game.letters.remove(game.main_letter);
+	const divChildren = Array.from(hex.childNodes) // Convert NodeList to Array
+  .filter(node => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'DIV'); 
+
+	divChildren.forEach(child => {
+		var l = document.createElement('div');
+		l.classList.add("hex-item");
+		l.classList.add("big");
+		var p = document.createElement('p');
+		char = "";
+		if (ele_cnt == 3) {
+			char = game.main_letter;
+			child.classList.add("special-hex");
+		} else {
+			if (game.letters[cnt] == game.main_letter) {
+				cnt ++;
+			}
+			char = game.letters[cnt];
+			cnt += 1;
+		}
+
+		p.innerHTML = char.toUpperCase();
+		l.appendChild(p);
+		l.onclick = function () { onLetterBoxClick(l.firstChild.innerHTML); }
+		if (char == game.main_letter) {
+			child.classList.add("special-hex");
+			//l.classList.add("special-letter");
+		}
+		child.appendChild(l);
+		ele_cnt++;
+	}); 
+
+
+	// Straight line letters
+	/** 
 	var letters = document.getElementById('letters');
 	game.letters.forEach(letter => {
 		var l = document.createElement('div');
@@ -45,7 +83,7 @@ function init() {
 		}
 		letters.appendChild(l);
 	});
-
+*/
 	document.addEventListener('keyup', function (evt) {
 		evt = (evt) ? evt : window.event;
 		var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -240,6 +278,7 @@ function on_share(url, level, words) {
 }
 
 //Shuffle Button Action
+/** 
 function shuffle() {
 	letters = document.getElementById('letters')
 	let array = document.getElementById('letters').children;
@@ -262,7 +301,46 @@ function shuffle() {
 		letter.onclick = function () { click_letter(letter.firstChild.innerHTML); }
 	});
 }
+*/
+function shuffle() {
+	array = game.letters;
+	// Iterate over the array in reverse order
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	  }
+	  game.letters = array;
+	rerenderHex(array);
+}
 
+function rerenderHex(letters) {
+	cnt = 0;
+	ele_cnt = 0;
+	var hex = document.getElementById('hexagon-container');
+	//letters = game.letters.remove(game.main_letter);
+	const divChildren = Array.from(hex.childNodes) // Convert NodeList to Array
+  .filter(node => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'DIV'); 
+
+	divChildren.forEach(child => {
+		l = child.children[0];
+		p = l.children[0];
+		char = "";
+		if (ele_cnt == 3) {
+			char = game.main_letter;
+			child.classList.add("special-hex");
+		} else {
+			if (game.letters[cnt] == game.main_letter) {
+				cnt ++;
+			}
+			char = game.letters[cnt];
+			cnt += 1;
+		}
+
+		p.innerHTML = char.toUpperCase();
+		ele_cnt++;
+	}); 
+
+}
 // Shows message of why word did not work
 function ephemeral_message(message) {
 	message_el = document.getElementById("ephemeral");

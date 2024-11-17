@@ -13,6 +13,12 @@ body {
     font-weight: bold;
 }
 
+#display {
+    background-color: rgb(255 255 255 / 87%);
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+}
+
 #words {
     background-color: rgb(255 255 255 / 87%);
     backdrop-filter: blur(5px);
@@ -46,15 +52,27 @@ body {
     border-radius: 5px;
     height: 50px;
 }
+.hex-item {
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+    transform: translateY(-10px);
+}
+
 
 .flex-item p {
     vertical-align: middle;
 }
 
+
 .special-letter {
     align-self: stretch;
     background-color: gold;
     text-shadow: #FC0 3px 0 10px;
+
 
 }
 
@@ -77,6 +95,78 @@ body {
     flex-grow: 1;
 }
 
+.hexagon {
+    width: 100px;
+    height: 55px;
+    background: black;
+    position: absolute;
+}
+
+.hexagon:before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 25px solid black;
+}
+
+.hexagon:after {
+    content: "";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 25px solid black;
+    cursor: pointer;
+}
+.special-hex {
+    background: gold;
+
+}
+.special-hex:before {
+    border-bottom: 25px solid gold;
+}
+.special-hex:after {
+    border-top: 25px solid gold;
+}
+.hex1 {
+    top: 20px;
+    left: 0px;
+}
+
+.hex2 {
+    transform: translate(-105px, 0);
+}
+
+.hex3 {
+    transform: translate(5px, 0);
+}
+
+.hex4 {
+    transform: translate(-160px, 90px);
+}
+
+.hex5 {
+    transform: translate(-50px, 90px);
+}
+
+.hex6 {
+    transform: translate(60px, 90px);
+}
+
+.hex7 {
+    transform: translate(-105px, 180px);
+}
+.hex8 {
+    transform: translate(5px, 180px);
+}
 
 .button {
     background-color: goldenrod;
