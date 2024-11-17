@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy relevant app sources.
 COPY \
-    engmix.txt \
+    words.txt \
     puzzles.txt \
     spellingBee.py \
     spelling_bee_server.py \
