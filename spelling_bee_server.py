@@ -1,6 +1,8 @@
 from datetime import datetime
 import os
-from flask import Flask, abort, redirect, render_template, url_for
+
+from dateutil import tz
+from flask import Flask, abort, redirect, render_template, request, url_for
 
 from spellingBee import SpellingBee
 
@@ -55,12 +57,11 @@ def parse_puzzle(line):
     return (date, letters, main_letter)
 
 # Parse the puzzle file and return a dict of datetime.date to SpellingBee objects.
-def parse_puzzle_file(puzzle_file):
-    default_date = parse_date('0001-01-01')
+def parse_puzzle_file(puzzle_file, add_default=False):
+    puzzles = {}
 
-    puzzles = {
-        default_date: SpellingBee(['c', 'h', 'a', 'n', 'g', 't', 'i'], 't', True)
-    }
+    if add_default:
+        puzzles[parse_date('0001-01-01')] = SpellingBee(['c', 'h', 'a', 'n', 'g', 't', 'i'], 't', True)
 
     if puzzle_file is None:
         return puzzles
@@ -85,6 +86,23 @@ puzzles = parse_puzzle_file(puzzle_file)
 # Lazily compute these as requested to avoid doing it all on startup.
 rendered_games = {}
 
+# Helper to render the bee HTML page for a given date.
+def render_bee(date):
+    # If date is None or not a puzzle we know about, return 404.
+    if date not in puzzles:
+        abort(404)
+        return
+
+    # Render game if it hasn't yet been requested.
+    if date not in rendered_games:
+        rendered_games[date] = create_game(puzzles[date])
+
+    return render_template('bee.html', date=str(date), game=rendered_games[date])
+
+# Return the current date in the US/Eastern timezone.
+def date_now():
+    return datetime.now(tz=tz.gettz('US/Eastern')).date()
+
 @app.route('/')
 def index():
     return redirect(url_for('games'))
@@ -95,19 +113,21 @@ def games():
 
 @app.route('/games/bee')
 def archive():
-    return render_template('bee-archive.html', dates=puzzles.keys())
+    now = date_now()
+    # Don't display future puzzles.
+    dates = [d for d in puzzles.keys() if d <= now]
+    return render_template('bee_archive.html', dates=dates)
+
+@app.route('/games/bee/today')
+def today():
+    return render_bee(date_now())
 
 @app.route('/games/bee/<id>')
 def bee(id):
-    # Formatted as YYYY-MM-DD
+    now = date_now()
     date = parse_date(id)
-
-    # If date is None or not a puzzle we know about, return 404.
-    if date not in puzzles:
+    # Don't serve future puzzles.
+    if date > now:
         abort(404)
-
-    # Render game if it hasn't yet been requested.
-    if date not in rendered_games:
-        rendered_games[date] = create_game(puzzles[date])
-
-    return render_template('bee.html', date=str(date), game=rendered_games[date])
+        return
+    return render_bee(date)
