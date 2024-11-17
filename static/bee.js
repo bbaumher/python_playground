@@ -1,18 +1,25 @@
 // On Load
 function init() {
-	let stored = localStorage.getItem(date);
+	let stored = getLocalStorage();
 	if (!stored) {
-
 		// Legacy code, keeping for beta users
 		// Delete soon. convert cookie to localstorage
 		if (checkCookieExists("guessed")) {
 			guessed = getCookie("guessed");
-			localStorage.setItem(date, JSON.stringify(guessed));
-			delete_cookie("guessed");
+			samePuzzle = true;
+			guessed.forEach(word => {
+				if (!game.words.includes(word)) {
+					samePuzzle = false;
+				}
+			});
+			if (samePuzzle) {
+				setLocalStorage(guessed);
+				delete_cookie("guessed");
+			}
 		}
 	}
 	// check localstorage for stored guesses
-	stored = JSON.parse(localStorage.getItem(date));
+	stored = getLocalStorage();
 	if (stored) {
 		guessed = stored;
 		var words = document.getElementById('words');
@@ -93,7 +100,7 @@ function checkWord() {
 	if (game.words.includes(guess)) {
 		if (guessed.indexOf(guess) === -1) {
 			guessed.push(guess);
-			localStorage.setItem(date, JSON.stringify(guessed));
+			setLocalStorage(guessed);
 			add_word(guess);
 			if (game.pangrams.includes(guess)) {
 				score += 7;
@@ -294,6 +301,17 @@ function backspace() {
 	str = document.getElementById("display").innerHTML;
 	document.getElementById("display").innerHTML = str.slice(0, -1);
 }
+
+// Local Storage Helpers
+function setLocalStorage(value) {
+	localStorage.setItem("bee-"+date, JSON.stringify(value));
+}
+
+function getLocalStorage() {
+	return JSON.parse(localStorage.getItem("bee-"+date));
+}
+
+
 
 // Cookie Features
 function getCookie(name) {
