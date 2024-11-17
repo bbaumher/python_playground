@@ -72,7 +72,7 @@ def main():
 
 	seconds = time.time()
 
-	test_bee = SpellingBee(keys, special_char, use_txt=False)
+	test_bee = SpellingBee(keys, special_char, use_txt=True)
 
 	# constructing bee time
 	after_time = time.time()
@@ -82,11 +82,12 @@ def main():
 
 	words = test_bee.legal_words()
 
+
 	words.sort()
-	#print(len(words))
+	print(len(words))
 
 	pg = test_bee.getPangrams()
-	#print(len(pg))
+	print(len(pg))
 
 	
 	total_score = test_bee.getTotalScore()
