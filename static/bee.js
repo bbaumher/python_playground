@@ -230,9 +230,13 @@ function on_share(url, level, words) {
 		resultPara.textContent = 'Share data unsupported, disallowed, or invalid';
 		return;
 	}
-	document.getElementById('score').innerHTML = score;
-	return message;
-
+	navigator.share(shareData)
+		.then(() =>
+			resultPara.textContent = 'shared successfully'
+		)
+		.catch((e) =>
+			resultPara.textContent = 'Error: ' + e
+		);
 }
 
 //Shuffle Button Action
