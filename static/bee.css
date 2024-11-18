@@ -1,3 +1,7 @@
+:root {
+    --hex_height: 70px;
+  }
+
 html {
     font-family: Sans-Serif;
 }
@@ -5,19 +9,158 @@ html {
 
 body {
     background-image: url('/games/static/bee.jpg');
-    margin: 20px;
     height: 100%;
 }
 
-#qual_score {
-    font-weight: bold;
+/** 
+hexagon code
+*/
+#hexagon-container {
+    padding-top: 30px;
+    height: 200px;
 }
 
+.hexagon {
+    width: var(--hex_height);
+    height: calc(var(--hex_height) * 0.55);
+    background: black;
+    position: absolute;
+}
+
+.hexagon:before {
+    content: "";
+    position: absolute;
+    top: calc(var(--hex_height) * -0.25);
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--hex_height) * 0.5) solid transparent;
+    border-right:calc(var(--hex_height) * 0.5) solid transparent;
+    border-bottom: calc(var(--hex_height) * 0.25) solid black;
+}
+
+.hexagon:after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--hex_height) * -0.25);
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--hex_height) * 0.5) solid transparent;
+    border-right: calc(var(--hex_height) * 0.5) solid transparent;
+    border-top: calc(var(--hex_height) * 0.25) solid black;
+    cursor: pointer;
+}
+.special-hex {
+    background: gold;
+
+}
+.special-hex:before {
+    border-bottom: calc(var(--hex_height) * 0.25) solid gold;
+}
+.special-hex:after {
+    border-top: calc(var(--hex_height) * 0.25) solid gold;
+}
+
+.hex2 {
+    transform: translate(calc(var(--hex_height) * -1.05), 0);
+}
+
+.hex3 {
+    transform: translate(calc(var(--hex_height) * .05), 0);
+}
+
+.hex4 {
+    transform: translate(calc(var(--hex_height) * -1.6), 
+    calc(var(--hex_height) * .9));
+}
+
+.hex5 {
+    transform: translate(calc(var(--hex_height) * -0.5), 
+    calc(var(--hex_height) * .9));
+}
+
+.hex6 {
+    transform: translate(calc(var(--hex_height) * 0.6), 
+    calc(var(--hex_height) * .9));
+}
+
+.hex7 {
+    transform: translate(calc(var(--hex_height) * -1.05), 
+    calc(var(--hex_height) * 1.8));
+}
+.hex8 {
+    transform: translate(calc(var(--hex_height) * 0.05), 
+    calc(var(--hex_height) * 1.8));
+}
+
+/**
+buttons
+*/
+.button {
+    background-color: goldenrod;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/** 
+guess input
+*/
 #display {
     background-color: rgb(255 255 255 / 87%);
     backdrop-filter: blur(5px);
     border-radius: 5px;
 }
+
+.big {
+    font-size: x-large;
+    font-weight: bolder;
+    height: 40px;
+    text-align: center;
+}
+
+/** 
+game level
+*/
+#qual_score {
+    font-weight: bold;
+}
+
+/** 
+ephemeral messages
+*/
+#ephemeral {
+    font-style: italic;
+    color: slategrey;
+    opacity: 1;
+    transition: opacity 1s;
+    margin-top: -25px;
+    margin-bottom: -22px;
+}
+
+#ephemeral.fade {
+    opacity: 0;
+}
+
+
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+
+
+
 
 #words {
     background-color: rgb(255 255 255 / 87%);
@@ -30,16 +173,12 @@ body {
     justify-content: right;
 }
 
-.big {
-    font-size: x-large;
-    font-weight: bolder;
-    height: 40px;
-    text-align: center;
-}
+
 
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .flex-item {
@@ -59,7 +198,14 @@ body {
     text-align: center;
     font-weight: bolder;
     font-size: x-large;
-    transform: translateY(-10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hex-item p {
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -67,14 +213,13 @@ body {
     vertical-align: middle;
 }
 
-
+/**
 .special-letter {
     align-self: stretch;
     background-color: gold;
     text-shadow: #FC0 3px 0 10px;
-
-
 }
+*/
 
 .container {
     display: -webkit-box;
@@ -93,108 +238,4 @@ body {
 
 .info-container {
     flex-grow: 1;
-}
-
-.hexagon-container {
-    padding-top: 30px;
-}
-
-.hexagon {
-    width: 100px;
-    height: 55px;
-    background: black;
-    position: absolute;
-}
-
-.hexagon:before {
-    content: "";
-    position: absolute;
-    top: -25px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 25px solid black;
-}
-
-.hexagon:after {
-    content: "";
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-top: 25px solid black;
-    cursor: pointer;
-}
-.special-hex {
-    background: gold;
-
-}
-.special-hex:before {
-    border-bottom: 25px solid gold;
-}
-.special-hex:after {
-    border-top: 25px solid gold;
-}
-.hex1 {
-    top: 20px;
-    left: 0px;
-}
-
-.hex2 {
-    transform: translate(-105px, 0);
-}
-
-.hex3 {
-    transform: translate(5px, 0);
-}
-
-.hex4 {
-    transform: translate(-160px, 90px);
-}
-
-.hex5 {
-    transform: translate(-50px, 90px);
-}
-
-.hex6 {
-    transform: translate(60px, 90px);
-}
-
-.hex7 {
-    transform: translate(-105px, 180px);
-}
-.hex8 {
-    transform: translate(5px, 180px);
-}
-
-.button {
-    background-color: goldenrod;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-#ephemeral {
-    font-style: italic;
-    color: slategrey;
-    opacity: 1;
-    transition: opacity 1s;
-    margin-top: -25px;
-    margin-bottom: -22px;
-}
-
-#ephemeral.fade {
-    opacity: 0;
 }
