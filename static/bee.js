@@ -1,3 +1,6 @@
+
+
+
 // On Load
 function init() {
 	let stored = getLocalStorage();
@@ -29,7 +32,10 @@ function init() {
 			words.prepend(l);
 		});
 		document.getElementById('score').innerHTML = calculate_score();
-		game_level();
+		level = game_level();
+		initProgressBar(level);
+	} else {
+		initProgressBar(0);
 	}
 
 	cnt = 0;
@@ -115,6 +121,41 @@ function init() {
 		let words = document.getElementById("words").childNodes.length;
 		on_share(url, level, words, resultPara)
 	});
+
+}
+
+function initProgressBar(level) {
+	bar = document.getElementById("line");
+	for (let i = 0; i < 9; i++) {
+		var dot = document.createElement('span');
+		dot.classList.add("dot");
+		if (i < level) {
+			dot.classList.add("past-level");
+		} else if (level == i) {
+			dot.classList.add("current");
+		}
+		bar.appendChild(dot);
+	}
+
+
+}
+
+function progressBar(level) {
+	bar = document.getElementById("line");
+	dots = bar.children;
+	for(let i = 0; i < dots.length; i++){
+		if (i < level) {
+			if (dots[i].classList.contains("current")) {
+				dots[i].classList.remove("current");
+				dots[i].classList.add("past-level");
+			}
+		} else if (i == level) {
+			dots[i].classList.add("current");
+		}
+
+
+	}
+
 }
 
 
@@ -124,7 +165,8 @@ function update(guessed) {
 	if (message.length > 0) {
 		ephemeral_message(message);
 	}
-	game_level();
+	level = game_level();
+	progressBar(level);
 	document.getElementById("display").innerHTML = "";
 }
 
@@ -179,30 +221,42 @@ function game_level() {
 	level9 = total * 0.9;
 	level10 = total
 	let score = parseInt(document.getElementById('score').innerHTML);
-	let level = "Beginner"
+	let level = "Beginner";
+	let levelNum = 0;
 
 	if (score == level10) {
 		level = "Queen Bee!";
+		levelNum = 9;
 	} else if (score > level9) {
 		level = "Genius";
+		levelNum = 8;
 	} else if (score > level8) {
 		level = "Amazing";
+		levelNum = 7;
 	} else if (score > level7) {
 		level = "Great";
+		levelNum = 6;
 	} else if (score > level6) {
 		level = "Nice";
+		levelNum = 5;
 	} else if (score > level5) {
 		level = "Solid";
+		levelNum = 4;
 	} else if (score > level4) {
 		level = "Good";
+		levelNum = 3;
 	} else if (score > level3) {
 		level = "Moving Up";
+		levelNum = 2;
 	} else if (score > level2) {
 		level = "Good Start";
+		levelNum = 1;
 	} else if (score > level1) {
 		level = "Beginner";
+		levelNum = 0;
 	}
 	document.getElementById("qual_score").innerHTML = level;
+	return levelNum;
 }
 
 function containsLetters(guess) {

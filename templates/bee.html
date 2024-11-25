@@ -20,12 +20,22 @@
 <body>
   <!-- Headers -->
   <div class="header">
-    <h1>Spelling Bee</h1>
+    <div> 
+      <h1>Spelling Bee</h1>
+      <h2>{{ date }}</h2>
+    </div>
+
     <button id="back-btn" class="button right" onclick="location.href='/games/bee';">Archive</button>
   </div>
 
   <hr>
-  <h2>{{ date }}</h2>
+  <h2></h2>
+  <div id="progress-bar">
+    <div id="line">
+
+    </div>
+
+  </div>
   <!-- Letter Display -->
   <div class="container resize">
     <div id="hexagon-container">

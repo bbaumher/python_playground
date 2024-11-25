@@ -243,3 +243,34 @@ ephemeral messages
 .info-container {
     flex-grow: 1;
 }
+
+#progress-bar {
+    display: flex;
+}
+
+#line {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 1px;
+    align-items: center;
+}
+
+.dot {
+    background-color: lightgrey;
+    height: 5px;
+    width: 5px;
+    border-radius:2px;
+}
+
+.current {
+    background-color: gold;
+    height: 15px;
+    width: 15px;
+    border-radius:6px;
+}
+
+.past-level {
+    background-color: gold;  
+}
