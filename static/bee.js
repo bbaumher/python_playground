@@ -152,10 +152,7 @@ function progressBar(level) {
 		} else if (i == level) {
 			dots[i].classList.add("current");
 		}
-
-
 	}
-
 }
 
 
@@ -205,7 +202,6 @@ function checkWord() {
 	}
 	document.getElementById('score').innerHTML = score;
 	return message;
-
 }
 
 function game_level() {
@@ -221,8 +217,10 @@ function game_level() {
 	level9 = total * 0.9;
 	level10 = total
 	let score = parseInt(document.getElementById('score').innerHTML);
-	let level = "Beginner";
 	let levelNum = 0;
+	let old_level = document.getElementById("qual_score").innerHTML;
+	let level = "";
+
 
 	if (score == level10) {
 		level = "Queen Bee!";
@@ -256,6 +254,11 @@ function game_level() {
 		levelNum = 0;
 	}
 	document.getElementById("qual_score").innerHTML = level;
+	if (level.valueOf() != old_level.valueOf()) {
+		console.log("progress");
+		progressBar(levelNum);
+	}
+
 	return levelNum;
 }
 
