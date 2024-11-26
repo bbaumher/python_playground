@@ -211,7 +211,6 @@ function checkWord() {
 		message = "Not a word :/"
 	}
 	document.getElementById('score').innerHTML = score;
-	document.getElementById('score-progress').innerHTML = score;
 	
 	return message;
 }
