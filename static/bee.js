@@ -37,7 +37,6 @@ function init() {
 	} else {
 		initProgressBar(0);
 	}
-
 	cnt = 0;
 	ele_cnt = 0;
 	var hex = document.getElementById('hexagon-container');
@@ -126,10 +125,8 @@ function init() {
 
 function initProgressBar(level) {
 	bar = document.getElementById("line");
-	let score = parseInt(document.getElementById('score').innerHTML);
-	var score_el = document.createElement('span');
-	score_el.setAttribute("id", "score-progress");
-	score_el.innerHTML = score;
+	var score_el = document.getElementById('score');
+	bar.removeChild(score_el);
 
 	for (let i = 0; i < 9; i++) {
 		var dot = document.createElement('span');
