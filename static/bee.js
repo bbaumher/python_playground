@@ -126,6 +126,10 @@ function init() {
 
 function initProgressBar(level) {
 	bar = document.getElementById("line");
+	let score = parseInt(document.getElementById('score').innerHTML);
+	var score_el = document.createElement('p');
+	score_el.innerHTML = score;
+
 	for (let i = 0; i < 9; i++) {
 		var dot = document.createElement('span');
 		dot.classList.add("dot");
@@ -133,24 +137,29 @@ function initProgressBar(level) {
 			dot.classList.add("past-level");
 		} else if (level == i) {
 			dot.classList.add("current");
+			dot.appendChild(score_el);
 		}
 		bar.appendChild(dot);
 	}
-
-
 }
 
 function progressBar(level) {
 	bar = document.getElementById("line");
 	dots = bar.children;
+	let score = parseInt(document.getElementById('score').innerHTML);
+	let score_el;
 	for(let i = 0; i < dots.length; i++){
 		if (i < level) {
 			if (dots[i].classList.contains("current")) {
 				dots[i].classList.remove("current");
 				dots[i].classList.add("past-level");
+				score_el = dots[i].firstChild;
+				dots[i].removeChild(score_el);
 			}
 		} else if (i == level) {
 			dots[i].classList.add("current");
+			score_el.innerHTML = score;
+			dots[i].appendChild(score_el);
 		}
 	}
 }
@@ -163,7 +172,6 @@ function update(guessed) {
 		ephemeral_message(message);
 	}
 	level = game_level();
-	progressBar(level);
 	document.getElementById("display").innerHTML = "";
 }
 
