@@ -10,13 +10,14 @@ html {
 body {
     background-image: url('/games/static/bee.jpg');
     height: 100%;
+    touch-action: none;
 }
 
 /** 
 hexagon code
 */
 .resize {
-    height: calc(30% + 20px);
+    height: calc(var(--hex_height) * 3 + 10px);
 }
 #hexagon-container {
     padding-top: 30px;
@@ -175,6 +176,8 @@ ephemeral messages
     overflow: hidden;
     overflow-y: scroll;
     justify-content: right;
+    flex-grow: 4;
+    columns: 2;
 }
 
 
@@ -233,9 +236,6 @@ ephemeral messages
     margin: 10px 0 0 0;
 }
 
-.info-container {
-    flex-grow: 1;
-}
 
 #progress-bar {
     display: flex;
