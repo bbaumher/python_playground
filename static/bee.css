@@ -265,6 +265,10 @@ ephemeral messages
     border: 1px solid darkgray;
 }
 
+.last-level {
+    border-radius: 0;
+}
+
 .current {
     background-color: gold;
     height: 25px;

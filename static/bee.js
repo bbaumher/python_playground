@@ -140,6 +140,10 @@ function initProgressBar(level) {
 			dot.classList.add("current");
 			dot.appendChild(score_el);
 		}
+		// last level
+		if (i == 8) {
+			dot.classList.add("last-level");
+		}
 		bar.appendChild(dot);
 	}
 }
