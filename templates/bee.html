@@ -20,15 +20,33 @@
 <body>
   <!-- Headers -->
   <div class="header">
-    <h1>Spelling Bee</h1>
+    <div> 
+      <h1>Spelling Bee</h1>
+      <h2>{{ date }}</h2>
+    </div>
+
     <button id="back-btn" class="button right" onclick="location.href='/games/bee';">Archive</button>
   </div>
-
-  <hr>
-  <h2>{{ date }}</h2>
+  <div class="container" id="progress-bar">
+    <div id="qual_score">Beginner</div>
+    <div class="container" id="line"><span id="score">0</span></div>
+  </div>
   <!-- Letter Display -->
+  <div class="container resize">
+    <div id="hexagon-container">
+      <div class="hexagon hex2"></div>
+      <div class="hexagon hex3"></div>
+      <div class="hexagon hex4"></div>
+      <div class="hexagon hex5"></div>
+      <div class="hexagon hex6"></div>
+      <div class="hexagon hex7"></div>
+      <div class="hexagon hex8"></div>
+    </div>
+  </div>  
+<!--
   <div class="container" id="letters">
   </div>
+  -->
   <!-- Guess Display -->
   <div class="container">
     <div class="big" id="display"></div>
@@ -43,11 +61,6 @@
   <!-- Score / Game Info -->
   <div class="container">
     <div class="info-container">
-      <div id="qual_score">Beginner</div>
-      <div>
-        <p style="display: inline">Score is:</p>
-        <p style="display: inline" id="score">0</p>
-      </div>
       <p><button class="button" id="share-btn">Share!</button></p>
     </div>
     <div class="info-container" id="words"></div>

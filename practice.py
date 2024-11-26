@@ -186,7 +186,7 @@ def user_input_test():
 
 def small_dictionary():
 	return ["the","a","there","anaswe","any",
-			"by","their", "word", "act", "tact", "caca", "tata"]
+			"by","their", "word", "act", "tact", "caca", "tata", "libel", "libeled"]
 
 def charToIndex(ch):
 		
@@ -195,7 +195,10 @@ def charToIndex(ch):
 		# use only 'a' through 'z' and lower case
 		
 		return ord(ch)-ord('a')
-			
+
+	
+
+
 def main():
 	T = Trie()
 	for word in small_dictionary():
@@ -219,8 +222,37 @@ def main():
 		by_last[charToIndex(last)].append(word)
 
 	for l in by_first:
-		print(len(l))
-		print(l)
+		if l is not None:
+			print(len(l))
+			print(l)
+		else:
+			print("nothing!")
+	
+	print("hello")
+
+	letters = ['l', 'i', 'b', 'e', 'd', 'a', 's']
+	bee_eng = SpellingBee(letters, "d", use_txt=False)
+	bee_txt = SpellingBee(letters, "d", use_txt=True)
+
+	print("english- " + str(len(bee_eng.legal_words())) + 
+	   " words, " + str(len(bee_eng.getPangrams())) + " pangrams, and " +
+	   str(bee_eng.getTotalScore()) + " points")
+
+	print("txt- " + str(len(bee_txt.legal_words())) + 
+	   " words, " + str(len(bee_txt.getPangrams())) + " pangrams, and " +
+	   str(bee_txt.getTotalScore()) + " points")
+	
+	eng_only = [val for val in bee_eng.words if val not in bee_txt.words]
+	txt_only = [val for val in bee_txt.words if val not in bee_eng.words]
+
+
+	
+	print("in eng not txt: " + str(len(eng_only)))
+	print(eng_only)
+	print("in txt not eng: " + str(len(txt_only)))
+	print(txt_only)
+
+
 
 
 	
