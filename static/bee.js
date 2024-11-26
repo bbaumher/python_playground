@@ -127,7 +127,8 @@ function init() {
 function initProgressBar(level) {
 	bar = document.getElementById("line");
 	let score = parseInt(document.getElementById('score').innerHTML);
-	var score_el = document.createElement('p');
+	var score_el = document.createElement('span');
+	score_el.setAttribute("id", "score-progress");
 	score_el.innerHTML = score;
 
 	for (let i = 0; i < 9; i++) {
@@ -209,6 +210,8 @@ function checkWord() {
 		message = "Not a word :/"
 	}
 	document.getElementById('score').innerHTML = score;
+	document.getElementById('score-progress').innerHTML = score;
+	
 	return message;
 }
 

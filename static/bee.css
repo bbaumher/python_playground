@@ -249,7 +249,7 @@ ephemeral messages
 }
 
 #line {
-    background-color: black;
+    background-color: darkgrey;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -259,18 +259,23 @@ ephemeral messages
 
 .dot {
     background-color: lightgrey;
-    height: 5px;
-    width: 5px;
-    border-radius:2px;
+    height: 8px;
+    width: 8px;
+    border-radius:50%;
+    border: 1px solid darkgray;
 }
 
 .current {
     background-color: gold;
-    height: 15px;
-    width: 15px;
-    border-radius:6px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    border: none;
+    align-items: center;
+    justify-content: center;
 }
 
 .past-level {
-    background-color: gold;  
+    background-color: gold; 
+    border: 1px solid gold; 
 }
