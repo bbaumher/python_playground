@@ -221,8 +221,8 @@ function game_level() {
 	level2 = Math.min(total * 0.1, 15);
 	level3 = Math.min(total * 0.2, 30);
 	level4 = Math.min(total * 0.3, 50);
-	level5 = total * 0.5;
-	level6 = total * 0.6;
+	level5 = total * 0.45;
+	level6 = total * 0.55;
 	level7 = total * 0.7;
 	level8 = total * 0.8;
 	level9 = total * 0.9;
